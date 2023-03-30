@@ -1,24 +1,18 @@
 import React from 'react'
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import Navlinks from './Navlinks';
+import PageLayout from './PageLayout';
 
 const { Header, Content, Footer } = Layout;
 
 export default function Navbar() {
   return (
          <Header>
-        <div className="logo" />
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          defaultSelectedKeys={['2']}
-          items={new Array(15).fill(null).map((_, index) => {
-            const key = index + 1;
-            return {
-              key,
-              label: `nav ${key}`,
-            };
-          })}
-        />
+         <Navlinks to="/homepage" name="Library"> </Navlinks>
+      <Navlinks to="/books" name="Books"> </Navlinks>
+      <Navlinks to="/addBooks" name="Add Books"> </Navlinks>
+        
+      
       </Header>
   )
 }

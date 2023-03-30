@@ -1,10 +1,16 @@
 import React from 'react'
-import { NavLink as Link, useLocation } from 'react-router-dom'
-export default function Navlinks({ to, name, ...rest }) {
+import { Button, Space } from 'antd';
+import { Link } from 'react-router-dom';
+export default function Navlinks({ r, name, ...rest }) {
   return (
-   <Link to={to}>
-    {name}
-   </Link>
+//create a rouute link for different page
+
+    <Link to={r} {...rest}>
+      <Button type="link" style={{ color: 'white' }}>
+        {name}
+      </Button>
+    </Link>
+    
   )
 }
 
