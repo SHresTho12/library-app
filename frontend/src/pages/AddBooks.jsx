@@ -23,6 +23,14 @@ const [author, setAuthor] = useState('');
 const [genre, setGenre] = useState('');
 const [date, setDate] = useState('');
 const [inputNumber, setInputNumber] = useState('');
+const [description, setDescription] = useState('');
+
+function handleDescription(e){
+
+    setDescription(e.target.value);
+    console.log(description);
+}
+
 
 function handleChangeTitle(e){
    setName(e.target.value);
@@ -42,12 +50,13 @@ async function addBook(e) {
     const book = {
         name:name,
         author:author,
+        description:description,
         genre:genre,
       
     }
     console.log(book);
     //axios add book request
-    const res = await axios.post('http://localhost:8000/addbook', book);
+    const res = await axios.post('http://localhost:8000/api/books/insert', book);
     console.log(res.data);
 
 }
@@ -90,6 +99,9 @@ async function addBook(e) {
       </Form.Item>
         <Form.Item label="Author" required>
         <Input placeholder='Author Name' onChange={setAuthorName}/>
+      </Form.Item>
+        <Form.Item label="Description" required>
+        <Input placeholder='Write A short Description' onChange={handleDescription}/>
       </Form.Item>
       <Form.Item label="Genre" required >
         <Select placeholder='Genre' onChange={setGenreName} >

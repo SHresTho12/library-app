@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import PageLayout from '../components/Layout/PageLayout'
 import { useState } from 'react';
-import { Button } from 'antd';
+import { Button , Table,Tag,Space } from 'antd';
+const { Column, ColumnGroup } = Table;
 export default function Books() {
     const [books, setBooks] = useState([]);
 
@@ -13,7 +14,7 @@ export default function Books() {
 
 
     const getBooks = async () => {
-        const response = await fetch('http://localhost:8000/bookList');
+        const response = await fetch('http://localhost:8000/api/books/bookList');
         const data = await response.json();
         setBooks(data);
     }
@@ -24,7 +25,7 @@ console.log(books);
   return (
     <>
         <PageLayout></PageLayout>
-        <div className="container">
+        {/* <div className="container">
             <div className="row">
                 <div className="col-md-12">
                     <h1>Books</h1>
@@ -55,9 +56,44 @@ console.log(books);
                     </table>
                 </div>
             </div>
-        </div>
+        </div> */}
+
+<Table  dataSource={books} >
+
+<ColumnGroup title="Books Detail">
+      <Column title="Name" dataIndex="name" key="name" />
+      <Column title="Author" dataIndex="author" key="author" />
+    </ColumnGroup>
+    <Column title="Genre" dataIndex="genre" key="genre" />
+    <Column title="Description" dataIndex="description" key="description" />
+    {/* <Column
+      title="Tags"
+      dataIndex="tags"
+      key="tags"
+      render={(tags) => (
+        <>
+          {tags.map((tag) => (
+            <Tag color="blue" key={tag}>
+              {tag}
+            </Tag>
+          ))}
+        </>
+      )}
+    /> */}
+    <Column
+      title="Action"
+      key="action"
+      render={(_, record) => (
+        <Space size="large">
+          <a>Update {record.name}</a>
+          <a>Delete</a>
+        </Space>
+      )}
+    />
 
 
+
+</Table>
 
     
     </>
