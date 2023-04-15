@@ -12,6 +12,7 @@ import {
   Switch,
   TreeSelect,
 } from 'antd';
+import './CSS/Addbook.css'
 import axios from 'axios';
 import { useState } from 'react';
 export default function AddBooks() {
@@ -69,7 +70,9 @@ async function addBook(e) {
   return (
     <>
     <PageLayout></PageLayout>
-   <Form
+   
+    <div className="form-container">
+         <Form
       labelCol={{
         span: 4,
       }}
@@ -159,6 +162,9 @@ async function addBook(e) {
     </Form.Item>
      
     </Form>
+      </div>
+
+
     </>
   )
 }

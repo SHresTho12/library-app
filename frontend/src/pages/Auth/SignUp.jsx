@@ -1,7 +1,14 @@
 import React from 'react'
 import PageLayout from '../../components/Layout/PageLayout'
 import { Form, Button, Checkbox, DatePicker, Input, Select, Space } from "antd";
+import {useNavigate} from 'react-router-dom';
+import './CSS/index.css'
+import axios from 'axios';
 function SignUp() {
+  const navigate = useNavigate();
+  const loginPath = ()=>{
+  
+  }
   return (
    <>
    <PageLayout>
@@ -10,20 +17,31 @@ function SignUp() {
 
 
 
+<div className = "container-form"> 
     <Form
           autoComplete="off"
           labelCol={{ span: 10 }}
           wrapperCol={{ span: 14 }}
           onFinish={(values) => {
-            console.log({ values });
+            //sign up
+            console.log(values)
+            axios.post('http://localhost:8000/api/auth/signup', values).then((response) => {
+              console.log(response.data);
+              navigate('/login');
+            }
+            ).catch((error) => {
+              console.log(error);
+            }
+            );
+
           }}
           onFinishFailed={(error) => {
             console.log({ error });
           }}
         >
           <Form.Item
-            name="fullName"
-            label="Full Name"
+            name="username"
+            label="username"
             rules={[
               {
                 required: true,
@@ -96,67 +114,17 @@ function SignUp() {
             <Input.Password placeholder="Confirm your password" />
           </Form.Item>
 
-          <Form.Item name="gender" label="Gender" requiredMark="optional">
-            <Select placeholder="Select your gender">
-              <Select.Option value="male">Male</Select.Option>
-              <Select.Option value="female">Female</Select.Option>
-            </Select>
-          </Form.Item>
 
-          <Form.Item
-            name="dob"
-            label="Date of Birth"
-            rules={[
-              {
-                required: true,
-                message: "Please provide your date of birth",
-              },
-            ]}
-            hasFeedback
-          >
-            <DatePicker
-              style={{ width: "100%" }}
-              picker="date"
-              placeholder="Chose date of birth"
-            />
-          </Form.Item>
 
-          <Form.Item
-            name="website"
-            label="Website"
-            rules={[{ type: "url", message: "Please enter a valid url" }]}
-            hasFeedback
-          >
-            <Input placeholder="Add your website url" />
-          </Form.Item>
-
-          <Form.Item
-            name="agreement"
-            wrapperCol={{ span: 24 }}
-            valuePropName="checked"
-            rules={[
-              {
-                validator: (_, value) =>
-                  value
-                    ? Promise.resolve()
-                    : Promise.reject(
-                        "To proceed, you need to agree with our terms and conditions"
-                      ),
-              },
-            ]}
-          >
-            <Checkbox>
-              {" "}
-              Agree to our <a href="#">Terms and Conditions</a>
-            </Checkbox>
-          </Form.Item>
+ 
 
           <Form.Item wrapperCol={{ span: 24 }}>
-            <Button block type="primary" htmlType="submit">
+            <Button block onClick={loginPath} type="primary" htmlType="submit">
               Register
             </Button>
           </Form.Item>
         </Form>
+  </div>
    
    </>
   )

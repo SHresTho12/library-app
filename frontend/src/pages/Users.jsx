@@ -4,29 +4,29 @@ import { useState } from 'react';
 import { Button , Table,Tag,Space ,Typography} from 'antd';
 const { Column, ColumnGroup } = Table;
 const { Text, Title } = Typography;
-export default function Books() {
-    const [books, setBooks] = useState([]);
+export default function Users() {
+    const [users, setUsers] = useState([]);
 
 
     //UseEffect to fetch the books
     useEffect(() => {
-        getBooks();
+        getUsers();
     }, []);
 
 
-    const getBooks = async () => {
-        const response = await fetch('http://localhost:8000/api/books/bookList');
+    const getUsers = async () => {
+        const response = await fetch('http://localhost:8000/api/users/all');
         const data = await response.json();
-        setBooks(data);
+        setUsers(data);
     }
 
 
-console.log(books);
+
 
   return (
     <>
         <PageLayout></PageLayout>
-           <Title level={3} mark> Books</Title>
+           <Title level={3} mark> Users</Title>
         {/* <div className="container">
             <div className="row">
                 <div className="col-md-12">
@@ -60,14 +60,13 @@ console.log(books);
             </div>
         </div> */}
 
-<Table  dataSource={books} >
+<Table  dataSource={Users} >
 
 
-      <Column title="Name" dataIndex="name" key="name" />
-      <Column title="Author" dataIndex="author" key="author" />
+      <Column title="Name" dataIndex="username" key="username" />
+      <Column title="Email" dataIndex="Email" key="Email" />
   
-    <Column title="Genre" dataIndex="genre" key="genre" />
-    <Column title="Description" dataIndex="description" key="description" />
+  
     {/* <Column
       title="Tags"
       dataIndex="tags"
@@ -87,7 +86,7 @@ console.log(books);
       key="action"
       render={(_, record) => (
         <Space size="large">
-          <a>Update {record.name}</a>
+        
           <a>Delete</a>
         </Space>
       )}

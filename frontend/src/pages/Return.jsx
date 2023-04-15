@@ -2,12 +2,14 @@ import React, { useEffect } from 'react'
 import PageLayout from '../components/Layout/PageLayout'
 import { useState } from 'react';
 import { Button , Table,Tag,Space ,Typography} from 'antd';
+import { useUser } from '../Hooks/UserContext';
+import axios from 'axios';
 const { Column, ColumnGroup } = Table;
 const { Text, Title } = Typography;
-export default function Books() {
+export default function Return() {
     const [books, setBooks] = useState([]);
 
-
+    const { user } = useUser();
     //UseEffect to fetch the books
     useEffect(() => {
         getBooks();
@@ -15,11 +17,41 @@ export default function Books() {
 
 
     const getBooks = async () => {
-        const response = await fetch('http://localhost:8000/api/books/bookList');
-        const data = await response.json();
-        setBooks(data);
+       axios.get(`http://localhost:8000/api/users/borrowedBooks/${user.ID}`).then(res=>{
+              console.log(res);
+                setBooks(res.data);
+            })
+            .catch(err=>{
+                console.log(err);
+            })
+
+        
     }
 
+    const returnBook =(id) =>{
+        const book ={
+            book_id:id,
+            user_id:user.ID,
+        }
+    axios.put('http://localhost:8000/api/users/returnBook',book)
+        .then(res=>{
+            console.log(res);
+            //reload the page
+
+
+            
+            
+        }
+        )
+        .catch(err=>{
+
+            console.log(err);
+        }
+      
+        )
+          window.location.reload(true);
+
+    }
 
 console.log(books);
 
@@ -87,8 +119,7 @@ console.log(books);
       key="action"
       render={(_, record) => (
         <Space size="large">
-          <a>Update {record.name}</a>
-          <a>Delete</a>
+            <Button onClick={()=>returnBook(record.id)}>Return</Button>
         </Space>
       )}
     />
