@@ -1,0 +1,14 @@
+.container-body{
+        width: 100%;
+        height: 100%;
+  
+
+
+
+}
+
+body{
+background-image: url("https://upload.wikimedia.org/wikipedia/commons/6/60/Statsbiblioteket_l%C3%A6sesalen-2.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
